@@ -3,7 +3,7 @@ public class Person {
     String name;
     String address;
     int money;
-    //Order_history orderHistory; // Поле истории заказов из твоей структуры
+    //Order_history orderHistory;
 
     public Person (int all)
     {
