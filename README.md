@@ -28,4 +28,5 @@ classDiagram
     Person "1" --> "*" Order : делает
     Order "1" o-- "20" Position : содержит (массив)
     Order "*" --> "1" DeliveryMethod : использует
+    Order "1" o-- "20" Person : содержит
 ```
