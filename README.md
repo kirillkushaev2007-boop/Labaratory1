@@ -1,5 +1,5 @@
 ```mermaid
-class Diagram
+classDiagram
    %% Перечисление статусов (Statuses)
     class Status_order{
         <<enum>>
