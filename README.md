@@ -13,4 +13,10 @@ classDiagram
         -int cost
         -int quantity
    }
+   %% Клиент (Person)
+   class Person{
+       -String name
+       -int balance
+       -String address
+   }
 ```
