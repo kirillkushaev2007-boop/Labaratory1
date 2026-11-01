@@ -12,4 +12,5 @@ class Diagram
         -String name
         -int cost
         -int quantity
+   }
 ```
