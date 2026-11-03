@@ -76,4 +76,6 @@ classDiagram
    Pickup ..|> Delivery_method
    Standart_delivery ..|> Delivery_method
    Express_delivery ..|> Delivery_method
+   Standart_delivery o-- Courier
+   Express_delivery o-- Courier
 ```
