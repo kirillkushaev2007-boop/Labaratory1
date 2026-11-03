@@ -60,7 +60,7 @@ classDiagram
       +int calculate_cost (int cost_order)
       +void assign_courier(Courier courier)
    }
-    %% Экспресс доставка (Express_delivery)
+   %% Экспресс доставка (Express_delivery)
    class Express_delivery {
       -Courier express_courier
          %% Изначально может быть null
@@ -68,6 +68,13 @@ classDiagram
       +int calculate_cost (int cost_order)
       +void assign_courier(Courier courier)
    }
+   %% Менеджер заказов (Order_manager)
+   class Order_manager {
+      -Courier [] courier_array
+      -Order[] order_history
+         %% Хранилище всех заказов системы
+   }
+   
 
    Order *-- Position
    Order *-- Delivery_method
