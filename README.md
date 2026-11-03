@@ -23,11 +23,14 @@ classDiagram
    class Order {
       -Status_order status
       -int id
+      -int cost_order
       -Person client
-      -Position[] position
+      -Position[] pos_array
       -Delivery_method delivery
-      +void add_pos(Position position)
+      +void add_pos(Position pos)
          %%Добавляет позицию в заказ
+      +int get_cost_order()
+         %%Считает стоимость всего заказа
    }
    %% Курьер (Courier)
    class Courier {
@@ -37,9 +40,40 @@ classDiagram
       -int order_fee
          %%Зарплата за заказ
    }
+   %% Интерфейс доставки (Delivery_method)
+   class Delivery_method {
+      + int get_time()
+      + int calculate_cost (int cost_order)
+   }
+   %% Самовывоз (Pickup)
+   class Pickup{
+      -int cost_pickup
+      -int time_pickup
+      +int get_time()
+      +int calculate_cost (int cost_order)
+   }
+   %% Стандартная доставка (Standart_delivery)
+   class Standart_delivery {
+      -Courier standart_courier
+         %% Изначально может быть null
+      +int get_time()
+      +int calculate_cost (int cost_order)
+      +void assign_courier(Courier courier)
+   }
+    %% Экспресс доставка (Express_delivery)
+   class Express_delivery {
+      -Courier express_courier
+         %% Изначально может быть null
+      +int get_time()
+      +int calculate_cost (int cost_order)
+      +void assign_courier(Courier courier)
+   }
 
    Order *-- Position
    Order *-- Delivery_method
    Order *-- Status_order
    Order o-- Person
+   Pickup ..|> Delivery_method
+   Standart_delivery ..|> Delivery_method
+   Express_delivery ..|> Delivery_method
 ```
