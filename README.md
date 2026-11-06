@@ -86,8 +86,9 @@ classDiagram
          %% Запускает цикл меню (использует show_menu(), )
       -void show_menu()
          %% Показывает всю видимую часть интерфейса
-      -void input_cloient
+      -void input_client()
          %% Обрабатывает все вводы клиента
+         }
    
    %% Связи заказа
    Order *-- Position
