@@ -108,4 +108,7 @@ classDiagram
    %% Связи главного управляющего класса (Order_manager)
    Order_manager o-- Order 
    Order_manager o-- Courier 
+
+   %% Связь пользовательского интерфейса (Console_UI)
+   Console_UI o-- Order_manager
 ```
