@@ -105,6 +105,6 @@ classDiagram
    Express_delivery o-- Courier
 
    %% Связи главного управляющего класса (Order_manager)
-   Order_manager o-- Order : управляет историей заказов
-   Order_manager o-- Courier : управляет списком курьеров
+   Order_manager o-- Order 
+   Order_manager o-- Courier 
 ```
