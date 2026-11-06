@@ -43,6 +43,7 @@ classDiagram
    }
    %% Интерфейс доставки (Delivery_method)
    class Delivery_method {
+      <<interface>>
       + int get_time()
       + int calculate_cost (int cost_order)
    }
