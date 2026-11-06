@@ -31,6 +31,7 @@ classDiagram
          %%Добавляет позицию в заказ
       +int get_cost_order()
          %%Считает стоимость всего заказа
+      +void change_status(Status_order new_status)
    }
    %% Курьер (Courier)
    class Courier {
@@ -73,16 +74,37 @@ classDiagram
       -Courier [] courier_array
       -Order[] order_history
          %% Хранилище всех заказов системы
+      +void create_new_order(Person client)
+         %%Создаёт новый заказ (Order), и кладёт его в order_history
+      +void assign_courier_to_order()
    }
-   
 
+   %% Пользовательский интерфейс (Console_UI)
+   class Console_UI{
+      -Order_manager manager
+      +void start_loop()
+         %% Запускает цикл меню (использует show_menu(), )
+      -void show_menu()
+         %% Показывает всю видимую часть интерфейса
+      -void input_cloient
+         %% Обрабатывает все вводы клиента
+   
+   %% Связи заказа
    Order *-- Position
    Order *-- Delivery_method
    Order *-- Status_order
    Order o-- Person
+
+   %% Реализация интерфейса доставки
    Pickup ..|> Delivery_method
    Standart_delivery ..|> Delivery_method
    Express_delivery ..|> Delivery_method
+
+   %% Связи методов доставки 
    Standart_delivery o-- Courier
    Express_delivery o-- Courier
+
+   %% Связи главного управляющего класса (Order_manager)
+   Order_manager o-- Order : управляет историей заказов
+   Order_manager o-- Courier : управляет списком курьеров
 ```
