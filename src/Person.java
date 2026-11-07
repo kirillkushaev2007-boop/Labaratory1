@@ -1,33 +1,25 @@
 public class Person {
-    //enum number_of_statuses{}
-    String name;
-    int balance;
-    String address;
+    private String name;
+    private int balance;
+    private String address;
 
 
-    public Person (int all)
-    {
-        throw new IllegalArgumentException("Пожалуйста введите как минимум 2 значения <Имя>, <Адрес>");
-    }
-    public Person (String all)
-    {
-        throw new IllegalArgumentException("Пожалуйста введите как минимум 2 значения <Имя>, <Адрес>");
-    }
+
     public Person(String name, String address, int balance) {
         if (name==null || address==null)
             throw new IllegalArgumentException("Ошибка: Имя и адрес должны быть обязательно заполнены!");
+        if (balance < 0)
+            throw new IllegalArgumentException("Ошибка: Баланс клиента не может быть меньше 0");
         this.name=name;
         this.address=address;
         this.balance = balance;
-        //this.orderHistory = new Order_history();
     }
-    public Person (String name, String address){
-        this(name, address, 0);
+
+    public int get_balance(){
+        return this.balance;
     }
-    void add_money(int other_money)
-    {
-        this.balance +=other_money;
-    }
+
+
 
 }
 
