@@ -1,9 +1,9 @@
 public class Person {
     //enum number_of_statuses{}
     String name;
+    int balance;
     String address;
-    int money;
-    //Order_history orderHistory;
+
 
     public Person (int all)
     {
@@ -13,12 +13,12 @@ public class Person {
     {
         throw new IllegalArgumentException("Пожалуйста введите как минимум 2 значения <Имя>, <Адрес>");
     }
-    public Person(String name, String address, int money) {
+    public Person(String name, String address, int balance) {
         if (name==null || address==null)
             throw new IllegalArgumentException("Ошибка: Имя и адрес должны быть обязательно заполнены!");
         this.name=name;
         this.address=address;
-        this.money=money;
+        this.balance = balance;
         //this.orderHistory = new Order_history();
     }
     public Person (String name, String address){
@@ -26,7 +26,7 @@ public class Person {
     }
     void add_money(int other_money)
     {
-        this.money+=other_money;
+        this.balance +=other_money;
     }
 
 }
