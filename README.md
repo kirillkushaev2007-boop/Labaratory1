@@ -21,6 +21,8 @@ classDiagram
    }
    %% Заказ (Order)
    class Order {
+      -final int ARRAY_LIMIT=20
+      -int count_position
       -Status_order status
       -int id
       -int cost_order
