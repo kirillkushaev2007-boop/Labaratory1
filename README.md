@@ -46,13 +46,13 @@ classDiagram
    %% Интерфейс доставки (Delivery_method)
    class Delivery_method {
       <<interface>>
+      + final int BARE_PREPARATION_TIME=20
       + int get_time()
       + int calculate_cost (int cost_order)
    }
    %% Самовывоз (Pickup)
    class Pickup{
       -int cost_pickup
-      -int time_pickup
       +int get_time()
       +int calculate_cost (int cost_order)
    }
