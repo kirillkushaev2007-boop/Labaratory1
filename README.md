@@ -46,7 +46,7 @@ classDiagram
    %% Интерфейс доставки (Delivery_method)
    class Delivery_method {
       <<interface>>
-      + final int BARE_PREPARATION_TIME=20
+      + final int BASE_PREPARATION_TIME=20
       + int get_time()
       + int calculate_cost (int cost_order)
    }
