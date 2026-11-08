@@ -52,7 +52,7 @@ classDiagram
    }
    %% Самовывоз (Pickup)
    class Pickup{
-      -int cost_pickup
+      -final int COST_PICKUP=10
       +int get_time()
       +int calculate_cost (int cost_order)
    }
