@@ -76,6 +76,7 @@ classDiagram
    class Order_manager {
       -Courier [] courier_array
       -Order[] order_history
+      -int count_orders
          %% Хранилище всех заказов системы
       +void create_new_order(Person client)
          %%Создаёт новый заказ (Order), и кладёт его в order_history
