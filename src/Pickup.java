@@ -9,5 +9,7 @@ public class Pickup implements Delivery_method {
     public int calculate_cost(int cost_order){
         return cost_order+COST_PICKUP;
     }
+    @Override
+    public void assign_courier(Courier courier){return;}
 
 }

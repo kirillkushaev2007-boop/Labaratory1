@@ -13,6 +13,7 @@ public class Standart_delivery implements Delivery_method {
             return cost_order + (standart_courier.get_order_fee());
         else return cost_order;
     }
+    @Override
     public void assign_courier(Courier courier)
     {
         if (courier==null)
