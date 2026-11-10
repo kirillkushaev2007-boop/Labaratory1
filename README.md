@@ -16,10 +16,7 @@ classDiagram
    %% Клиент (Person)
    class Person{
        -String name
-       -int balance
        -String address
-       + void plus_money()
-       + void minus_money()
    }
    %% Заказ (Order)
    class Order {
@@ -36,6 +33,8 @@ classDiagram
       +int get_cost_order()
          %%Считает стоимость всего заказа
       +void change_status(Status_order new_status)
+      +void clear_positions()
+         %%Очищает корзину
    }
    %% Курьер (Courier)
    class Courier {
