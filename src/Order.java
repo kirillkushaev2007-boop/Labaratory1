@@ -28,6 +28,11 @@ public class Order  {
     public int get_id(){return id;}
     public Status_order get_status() {return this.status;}
     public Person get_client() {return this.client;}
+    public void clear_positions() {
+        this.pos_array = new Position[ARRAY_LIMIT];
+        this.count_position = 0;
+        this.cost_order = 0;
+    }
     public void add_pos(Position position)
     {
         if (position==null)
