@@ -18,6 +18,8 @@ classDiagram
        -String name
        -int balance
        -String address
+       + void plus_money()
+       + void minus_money()
    }
    %% Заказ (Order)
    class Order {
@@ -83,18 +85,21 @@ classDiagram
       +void create_new_order(Person client)
          %%Создаёт новый заказ (Order), и кладёт его в order_history
       +void assign_courier_to_order()
+      +void complete_order()
    }
 
    %% Пользовательский интерфейс (Console_UI)
    class Console_UI{
-      -final Order_manager manager
-      -final Scanner scanner
-      +void start_loop()
-         %% Запускает цикл меню (использует show_menu(), )
-      -void show_menu()
-         %% Показывает всю видимую часть интерфейса
-      -void input_client()
-         %% Обрабатывает все вводы клиента
+      -Order_manager manager
+      +void menu_loop()
+         %% Запускает цикл меню
+      -void main_menu()
+         %% Запускает главное меню
+      -void price_menu()
+         %% Меню блюд
+      -void delivery_menu()
+        %% Меню доставки
+      + statuc void main()
          }
    
    %% Связи заказа
