@@ -16,41 +16,38 @@ public class Console_UI {
     }
 
     public void menu_loop(){
-        System.out.println("Выберете один из пунктов:\n" +
-                "0. Выйти\n" +
-                "(1-9). Начать\n");
-        int client_input = -1;
-        try {
-            client_input = scanner.nextInt();
-            scanner.nextLine();
-        } catch (java.util.InputMismatchException e) {
-            System.out.println("Ошибка: Нужно вводить только цифры!");
-            scanner.nextLine();
-        }
+        while (true) {
+            System.out.println("Выберете один из пунктов:\n" +
+                    "0. Выйти\n" +
+                    "(1-9). Начать\n");
+            int client_input = -1;
+            try {
+                client_input = scanner.nextInt();
+                scanner.nextLine();
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Ошибка: Нужно вводить только цифры!");
+                scanner.nextLine();
+            }
 
-        if (client_input == 0)
-            return;
-        else if(client_input == -1) {
-            System.out.println("Попробуйте перезапустить программу и ввести цифру");
-            return;
-        }
-        else {
-            System.out.print("Введите своё имя: ");
-            String client_input1 = scanner.nextLine();
-            System.out.println();
+            if (client_input == 0)
+                return;
+            else if (client_input == -1) {
+                System.out.println("Попробуйте перезапустить программу и ввести цифру");
+                return;
+            } else {
+                System.out.print("Введите своё имя: ");
+                String client_input1 = scanner.nextLine();
+                System.out.println();
 
-            System.out.print("Введите свой адрес: ");
-            String client_input2 = scanner.nextLine();
-            System.out.println();
+                System.out.print("Введите свой адрес: ");
+                String client_input2 = scanner.nextLine();
+                System.out.println();
 
-            System.out.print("Введите сумму денег на счету: ");
-            int client_input3 = scanner.nextInt();
-            scanner.nextLine();
+                Person client = new Person(client_input1, client_input2);
+                manager.create_new_order(client);
 
-            Person client = new Person(client_input1, client_input2, client_input3);
-            manager.create_new_order(client);
-
-            main_menu();
+                main_menu();
+            }
         }
     }
 
@@ -60,8 +57,7 @@ public class Console_UI {
                     "0. Назад\n" +
                     "1. Открыть меню блюд\n" +
                     "2. Посмотреть статус заказа\n" +
-                    "3. Посмотреть баланс\n" +
-                    "4. Посмотреть историю заказов\n");
+                    "3. Посмотреть историю заказов\n");
             int client_input = -1;
             try {
                 client_input = scanner.nextInt();
@@ -78,16 +74,15 @@ public class Console_UI {
                 case(0): return;
                 case(1):
                     price_menu();
+                    if (manager.get_last_order().get_status() == Status_order.ACCEPTED) {
+                        return;
+                    }
                     break;
                 case(2):
                     Status_order status = manager.get_last_order().get_status();
                     System.out.println("Статус заказа: " + status);
                     break;
                 case(3):
-                    int balance = manager.get_last_order().get_client().get_balance();
-                    System.out.println("Баланс: " + balance);
-                    break;
-                case(4):
                     Order[] order_history = manager.get_order_history();
                     for(int i = 0; i < manager.get_count_orders(); i++){
                         System.out.println("Заказ №" + order_history[i].get_id() + " | Status: " + order_history[i].get_status()
@@ -124,8 +119,8 @@ public class Console_UI {
                         return;
                     }
                     else {
-                        manager.get_last_order().get_client().plus_money(manager.get_last_order().get_cost_order());
-                        System.out.println("Вы вернулись в меню. Корзина сохранена, баланс не изменился.");
+                        manager.get_last_order().clear_positions();
+                        System.out.println("Корзина удалена");
                         break;
                     }
 
@@ -133,45 +128,30 @@ public class Console_UI {
                     System.out.print("Введите количество порций Колы: ");
                     quantity = scanner.nextInt();
                     scanner.nextLine();
-                    if (quantity * 150 > manager.get_last_order().get_client().get_balance()) {
-                        System.out.println("В покупке отказано, не хватает средств");
-                    }
-                    else {
-                        pos = new Position(quantity, "Кола", 150);
-                        manager.get_last_order().add_pos(pos);
-                        manager.get_last_order().get_client().minus_money(quantity*150);
-                        System.out.println("Кола добавлена в корзину!\n");
-                    }
+
+                    pos = new Position(quantity, "Кола", 150);
+                    manager.get_last_order().add_pos(pos);
+                    System.out.println("Кола добавлена в корзину!\n");
                     break;
 
                 case(2):
                     System.out.print("Введите количество порций Картошки фри: ");
                     quantity = scanner.nextInt();
                     scanner.nextLine();
-                    if (quantity * 250 > manager.get_last_order().get_client().get_balance()) {
-                        System.out.println("В покупке отказано, не хватает средств");
-                    }
-                    else {
-                        pos = new Position(quantity, "Картошка фри", 250);
-                        manager.get_last_order().add_pos(pos);
-                        manager.get_last_order().get_client().minus_money(quantity*250);
-                        System.out.println("Картошка фри добавлена в корзину!\n");
-                    }
+
+                    pos = new Position(quantity, "Картошка фри", 250);
+                    manager.get_last_order().add_pos(pos);
+                    System.out.println("Картошка фри добавлена в корзину!\n");
                     break;
 
                 case(3):
                     System.out.print("Введите количество порций Бургеров: ");
                     quantity = scanner.nextInt();
                     scanner.nextLine();
-                    if (quantity * 200 > manager.get_last_order().get_client().get_balance()) {
-                        System.out.println("В покупке отказано, не хватает средств");
-                    }
-                    else {
-                        pos = new Position(quantity, "Бургер", 200);
-                        manager.get_last_order().add_pos(pos);
-                        manager.get_last_order().get_client().minus_money(quantity*200);
-                        System.out.println("Бургер добавлен в корзину!\n");
-                    }
+
+                    pos = new Position(quantity, "Бургер", 200);
+                    manager.get_last_order().add_pos(pos);
+                    System.out.println("Бургер добавлен в корзину!\n");
                     break;
 
                 default:
