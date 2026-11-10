@@ -55,22 +55,14 @@ public class Order_manager {
             return;
         }
 
-        int total_cost = current_delivery.calculate_cost(food_cost);
+        int total_cost = current_order.get_cost_order()+current_delivery.calculate_cost(food_cost);
         Person client = current_order.get_client();
 
-        if (client.get_balance()+current_order.get_cost_order() < total_cost) {
-            System.out.println("Ошибка: Недостаточно средств на балансе!");
-            System.out.println("Стоимость заказа: " + total_cost + " руб. Ваш баланс: "
-                    + client.get_balance()+current_order.get_cost_order() + " руб.");
-            return;
-        }
 
-        client.minus_money(total_cost);
         current_order.change_status(Status_order.ACCEPTED);
 
         System.out.println("\n=== ЗАКАЗ УСПЕШНО ОПЛАЧЕН И ПОЛУЧЕН ===");
         System.out.println("Списано с баланса: " + total_cost + " руб.");
-        System.out.println("Остаток на счете " + ": " + client.get_balance() + " руб.");
         System.out.println("Статус заказа изменен на: ACCEPTED");
     }
 }
