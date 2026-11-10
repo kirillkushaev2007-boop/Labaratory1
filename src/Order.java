@@ -25,9 +25,9 @@ public class Order  {
     }
     public void set_delivery(Delivery_method delivery){this.delivery=delivery;}
     public Delivery_method get_delivery(){return this.delivery;}
-    public int get_id(){
-        return this.id;
-    }
+    public int get_id(){return id;}
+    public Status_order get_status() {return this.status;}
+    public Person get_client() {return this.client;}
     public void add_pos(Position position)
     {
         if (position==null)
