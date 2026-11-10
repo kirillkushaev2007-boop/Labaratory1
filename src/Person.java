@@ -18,8 +18,8 @@ public class Person {
     public int get_balance(){
         return this.balance;
     }
-
-
+    public void minus_money(int cost) {this.balance=this.balance-cost;}
+    public void plus_money(int cost) {this.balance=this.balance+cost;}
 
 }
 
