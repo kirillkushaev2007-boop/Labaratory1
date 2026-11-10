@@ -97,6 +97,7 @@ classDiagram
          %% Меню блюд
       -void delivery_menu()
         %% Меню доставки
+     +static void main(String args[])
          }
    
    %% Связи заказа
