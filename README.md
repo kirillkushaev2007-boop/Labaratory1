@@ -87,7 +87,8 @@ classDiagram
 
    %% Пользовательский интерфейс (Console_UI)
    class Console_UI{
-      -Order_manager manager
+      -final Order_manager manager
+      -final Scanner scanner
       +void start_loop()
          %% Запускает цикл меню (использует show_menu(), )
       -void show_menu()
