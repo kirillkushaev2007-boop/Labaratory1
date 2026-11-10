@@ -9,8 +9,8 @@ public class Express_delivery implements Delivery_method {
     @Override
     public int calculate_cost(int cost_order) {
         if (express_courier!=null)
-            return cost_order + (express_courier.get_order_fee()*2);
-        else return cost_order;
+            return (express_courier.get_order_fee()*2);
+        else return 0;
     }
     @Override
     public void assign_courier(Courier courier)
