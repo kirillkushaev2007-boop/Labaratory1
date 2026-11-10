@@ -16,6 +16,9 @@ public class Courier {
     public int get_order_fee(){
         return this.order_fee;
     }
+    public boolean get_is_free(){
+        return this.is_free;
+    }
 
     public void set_free(boolean x){
         this.is_free=x;
