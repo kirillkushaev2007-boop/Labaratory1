@@ -12,6 +12,9 @@ public class Order_manager {
         order_history[count_orders]=new Order(count_orders, client);
         count_orders++;
     }
+    public Order get_last_order(){return order_history[count_orders-1];}
+    public Order [] get_order_history(){return order_history;}
+    public int get_count_orders() {return count_orders;}
     void assign_courier_to_order() {
         if (count_orders == 0) {
             System.out.println("Ошибка: курьер не может прийти, если заказов ещё нет");
@@ -36,5 +39,38 @@ public class Order_manager {
         Delivery_method selected_delivery = target_order.get_delivery();
         selected_delivery.assign_courier(found_courier);
             target_order.change_status(Status_order.SHIPPED);
+    }
+    public void complete_order() {
+        if (count_orders == 0) {
+            System.out.println("Ошибка: Нет активных заказов для завершения!");
+            return;
+        }
+
+        Order current_order = order_history[count_orders - 1];
+        int food_cost = current_order.get_cost_order();
+        Delivery_method current_delivery = current_order.get_delivery();
+
+        if (current_delivery == null) {
+            System.out.println("Ошибка: Сначала выберите способ доставки!");
+            return;
+        }
+
+        int total_cost = current_delivery.calculate_cost(food_cost);
+        Person client = current_order.get_client();
+
+        if (client.get_balance()+current_order.get_cost_order() < total_cost) {
+            System.out.println("Ошибка: Недостаточно средств на балансе!");
+            System.out.println("Стоимость заказа: " + total_cost + " руб. Ваш баланс: "
+                    + client.get_balance()+current_order.get_cost_order() + " руб.");
+            return;
+        }
+
+        client.minus_money(total_cost);
+        current_order.change_status(Status_order.ACCEPTED);
+
+        System.out.println("\n=== ЗАКАЗ УСПЕШНО ОПЛАЧЕН И ПОЛУЧЕН ===");
+        System.out.println("Списано с баланса: " + total_cost + " руб.");
+        System.out.println("Остаток на счете " + ": " + client.get_balance() + " руб.");
+        System.out.println("Статус заказа изменен на: ACCEPTED");
     }
 }
