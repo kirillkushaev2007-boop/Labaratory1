@@ -6,7 +6,7 @@ public class Order  {
     private int cost_order;             // сумма (в деньгах) на которую сделан один заказ
     private Person client;              // Клиент
     private Position [] pos_array;      // список позиций в заказе
-    private Delivery_method delevery;
+    private Delivery_method delivery;
     public Order(int id, Person client){
         if (id <0)
             throw new IllegalArgumentException("id заказа не может быть меньше 0");
@@ -23,7 +23,8 @@ public class Order  {
     public int get_cost_order(){
         return this.cost_order;
     }
-
+    public void set_delivery(Delivery_method delivery){this.delivery=delivery;}
+    public Delivery_method get_delivery(){return this.delivery;}
     public int get_id(){
         return this.id;
     }
