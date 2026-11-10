@@ -49,12 +49,14 @@ classDiagram
       + final int BASE_PREPARATION_TIME=20
       + int get_time()
       + int calculate_cost (int cost_order)
+      +void assign_courier (Courier courier)
    }
    %% Самовывоз (Pickup)
    class Pickup{
       -final int COST_PICKUP=10
       +int get_time()
       +int calculate_cost (int cost_order)
+      +void assign_courier (Courier courier)
    }
    %% Стандартная доставка (Standart_delivery)
    class Standart_delivery {
