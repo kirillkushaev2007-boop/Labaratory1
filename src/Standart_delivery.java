@@ -10,8 +10,8 @@ public class Standart_delivery implements Delivery_method {
     public int calculate_cost(int cost_order)
     {
         if (standart_courier!=null)
-            return cost_order + (standart_courier.get_order_fee());
-        else return cost_order;
+            return (standart_courier.get_order_fee());
+        else return 0;
     }
     @Override
     public void assign_courier(Courier courier)
