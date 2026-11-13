@@ -11,5 +11,6 @@ public class Pickup implements Delivery_method {
     }
     @Override
     public void assign_courier(Courier courier){return;}
-
+    @Override
+    public Courier get_courier(){return null;}
 }

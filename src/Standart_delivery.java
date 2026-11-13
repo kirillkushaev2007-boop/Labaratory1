@@ -20,4 +20,6 @@ public class Standart_delivery implements Delivery_method {
             throw new IllegalArgumentException("Курьер не может быть пустым");
         else this.standart_courier=courier;
     }
+    @Override
+    public Courier get_courier(){return standart_courier;}
 }
