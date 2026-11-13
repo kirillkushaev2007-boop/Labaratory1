@@ -14,11 +14,26 @@ public class Order_manager {
     }
     public Order get_last_order(){return order_history[count_orders-1];}
     public Order [] get_order_history(){return order_history;}
+    public Order [] get_shipped_orders(){
+        Order[] buff=null;
+        for (int i=0; i<count_orders;) {
+            int count_shipped=0;
+            if (order_history[i].get_status()==Status_order.SHIPPED){
+                buff[count_shipped]=order_history[i];
+                i++;
+                count_shipped++;
+            }
+            else{
+                i++;
+            }
+        }
+        return buff;
+    }
     public int get_count_orders() {return count_orders;}
-    void assign_courier_to_order() {
+    boolean assign_courier_to_order() {
         if (count_orders == 0) {
             System.out.println("Ошибка: курьер не может прийти, если заказов ещё нет");
-            return;
+            return false;
         }
         Order target_order = order_history[count_orders - 1];
         Courier found_courier = null;
@@ -33,12 +48,13 @@ public class Order_manager {
         }
         if (found_courier == null) {
             System.out.println("Свободные курьеры закончились(");
-            return;
+            return false;
         }
         found_courier.set_free(false);
         Delivery_method selected_delivery = target_order.get_delivery();
         selected_delivery.assign_courier(found_courier);
-            target_order.change_status(Status_order.SHIPPED);
+        target_order.change_status(Status_order.SHIPPED);
+        return true;
     }
     public void complete_order() {
         if (count_orders == 0) {
@@ -59,10 +75,9 @@ public class Order_manager {
         Person client = current_order.get_client();
 
 
-        current_order.change_status(Status_order.ACCEPTED);
 
-        System.out.println("\n=== ЗАКАЗ УСПЕШНО ОПЛАЧЕН И ПОЛУЧЕН ===");
-        System.out.println("Списано с баланса: " + total_cost + " руб.");
-        System.out.println("Статус заказа изменен на: ACCEPTED");
+        System.out.println("\n=== ЗАКАЗ УСПЕШНО ОТПРАВЛЕН ===");
+        System.out.println("Будет списано с баланса: " + total_cost + " руб.");
+        System.out.println("Статус заказа: " + current_order.get_status());
     }
 }
