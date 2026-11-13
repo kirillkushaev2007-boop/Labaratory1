@@ -19,5 +19,7 @@ public class Express_delivery implements Delivery_method {
             throw new IllegalArgumentException("Нельзя назначить пустого курьера");
         this.express_courier=courier;
     }
+    @Override
+    public Courier get_courier(){return express_courier;}
 }
 
