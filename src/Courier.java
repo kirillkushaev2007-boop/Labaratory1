@@ -23,5 +23,6 @@ public class Courier {
     public void set_free(boolean x){
         this.is_free=x;
     }
+    public String get_name() {return this.name;}
 }
 
