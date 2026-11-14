@@ -50,12 +50,14 @@ classDiagram
       + final int BASE_PREPARATION_TIME=20
       + int get_time()
       + int calculate_cost (int cost_order)
+      + Courier get_courier()
    }
    %% Самовывоз (Pickup)
    class Pickup{
       -final int COST_PICKUP=10
       +int get_time()
       +int calculate_cost (int cost_order)
+      + Courier get_courier()
    }
    %% Стандартная доставка (Standart_delivery)
    class Standart_delivery {
@@ -64,6 +66,7 @@ classDiagram
       +int get_time()
       +int calculate_cost (int cost_order)
       +void assign_courier(Courier courier)
+      + Courier get_courier()
    }
    %% Экспресс доставка (Express_delivery)
    class Express_delivery {
@@ -72,6 +75,7 @@ classDiagram
       +int get_time()
       +int calculate_cost (int cost_order)
       +void assign_courier(Courier courier)
+      + Courier get_courier()
    }
    %% Менеджер заказов (Order_manager)
    class Order_manager {
@@ -90,11 +94,11 @@ classDiagram
       -Order_manager manager
       +void menu_loop()
          %% Запускает цикл меню
-      -void main_menu()
+      -boolean main_menu()
          %% Запускает главное меню
-      -void price_menu()
+      -boolean price_menu()
          %% Меню блюд
-      -void delivery_menu()
+      -boolean delivery_menu()
         %% Меню доставки
      +static void main(String args[])
          }
