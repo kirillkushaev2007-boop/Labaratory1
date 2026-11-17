@@ -94,7 +94,7 @@ classDiagram
       -Order_manager manager
       +void menu_loop()
          %% Запускает цикл меню
-      -boolean main_menu()
+      -void main_menu()
          %% Запускает главное меню
       -boolean price_menu()
          %% Меню блюд
