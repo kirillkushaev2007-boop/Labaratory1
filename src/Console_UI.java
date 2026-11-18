@@ -15,7 +15,7 @@ public class Console_UI {
         ui.menu_loop();
     }
 
-    public void menu_loop(){
+    public void menu_loop() {
         while (true) {
             System.out.println("Выберете один из пунктов:\n" +
                     "0. Выйти\n" +
@@ -36,22 +36,21 @@ public class Console_UI {
                 return;
             } else {
                 System.out.print("Введите своё имя: ");
-                String client_input1 = scanner.nextLine();
+                String name = scanner.nextLine();
                 System.out.println();
 
                 System.out.print("Введите свой адрес: ");
-                String client_input2 = scanner.nextLine();
+                String address = scanner.nextLine();
                 System.out.println();
+                Person client = new Person(name, address);
+                while (main_menu(client)) {
 
-                Person client = new Person(client_input1, client_input2);
-                manager.create_new_order(client);
-
-                main_menu();
+                }
             }
         }
     }
 
-    private void main_menu() {
+    private boolean main_menu(Person client) {
         while (true) {
             System.out.println("ГЛАВНОЕ МЕНЮ:\n" +
                     "0. Назад\n" +
@@ -73,17 +72,30 @@ public class Console_UI {
             }
             switch (client_input) {
                 case (0):
-                    return ;
+                    if (manager.get_last_order()!=null)
+                    {
+                        if(manager.get_last_order().get_status()==Status_order.ORDERED)
+                            manager.delete_last_order();
+                    }
+                    return false;
                 case (1):
+                    manager.create_new_order(client);
                     if(price_menu())
-                        return;
+                        return true;
                     break;
                 case (2):
-                    Status_order status = manager.get_last_order().get_status();
-                    System.out.println("Статус заказа: " + status);
+                    if (manager.get_last_order()!=null) {
+                        Status_order status = manager.get_last_order().get_status();
+                        System.out.println("Статус заказа: " + status);
+                    }
+                    else System.out.println("Заказ ещё не создан");
                     break;
                 case (3):
                     Order[] order_history = manager.get_order_history();
+                    if(manager.get_count_orders()==0){
+                        System.out.println("В истории заказов, пока ничего нет(");
+                        break;
+                    }
                     for (int i = 0; i < manager.get_count_orders(); i++) {
                         System.out.println("Заказ №" + order_history[i].get_id() + " | Status: " + order_history[i].get_status()
                                 + " | Стоимость заказанных блюд: "
@@ -91,35 +103,42 @@ public class Console_UI {
                     }
                     break;
                 case (4):
-                    Order[] shipped_orders = manager.get_shipped_orders();
-                    if (shipped_orders == null) {
-                        System.out.println("Нет ни одного отправленного заказа");
-                        break;
-                    }
-                    for (int i = 0; i < shipped_orders.length; i++) {
-                        if (shipped_orders[i].get_status() == Status_order.SHIPPED) {
-                            System.out.println("Заказ №" + i + " | Status: " + shipped_orders[i].get_status()
-                                    + " | Стоимость заказанных блюд: "
-                                    + shipped_orders[i].get_cost_order() + " руб.");
-                        }
-                    }
-                    System.out.println("Выберете номер заказа или введите любую строку, если хотите выйти из этого меню");
-                    String client_input1 = scanner.nextLine().trim();
-                    try {
-                        int number = Integer.parseInt(client_input1);
-                        if (number >= 0 && number < shipped_orders.length) {
-                            shipped_orders[number].change_status(Status_order.ACCEPTED);
-                            shipped_orders[number].get_delivery().get_courier().set_free(true);
-                        } else {
-                            System.out.println("Ваше число число не соответсвует ни одному из заказов," +
-                                    " поэтому было считано, как строка");
+                    if (manager.get_last_order()!=null) {
+                        Order[] shipped_orders = manager.get_shipped_orders();
+                        if (shipped_orders == null) {
+                            System.out.println("Нет ни одного отправленного заказа");
                             break;
                         }
+                        for (int i = 0; i < shipped_orders.length; i++) {
+                            if (shipped_orders[i].get_status() == Status_order.SHIPPED) {
+                                System.out.println("Заказ №" + i + " | Status: " + shipped_orders[i].get_status()
+                                        + " | Стоимость заказанных блюд: "
+                                        + shipped_orders[i].get_cost_order() + " руб.");
+                            }
+                        }
+                        System.out.println("Выберете номер заказа или введите любую строку, если хотите выйти из этого меню");
+                        String client_input1 = scanner.nextLine().trim();
+                        try {
+                            int number = Integer.parseInt(client_input1);
+                            if (number >= 0 && number < shipped_orders.length) {
+                                shipped_orders[number].change_status(Status_order.ACCEPTED);
+                                shipped_orders[number].get_delivery().get_courier().set_free(true);
+                                manager.complete_order();
+                                return true;
+                            } else {
+                                System.out.println("Ваше число число не соответсвует ни одному из заказов," +
+                                        " поэтому было считано, как строка");
+                                break;
+                            }
 
-                    } catch (NumberFormatException e) {
+                        } catch (NumberFormatException e) {
+                            break;
+                        }
+                    }
+                    else{
+                        System.out.println("Заказ ещё не создан");
                         break;
                     }
-
 
             }
         }
@@ -147,8 +166,9 @@ public class Console_UI {
                     int client_choice2 = scanner.nextInt();
                     scanner.nextLine();
                     if (client_choice2 == 1){
-                        if(delivery_menu())
+                        if(delivery_menu()){
                             return true;
+                        }
                         break;
                     }
                     else {
