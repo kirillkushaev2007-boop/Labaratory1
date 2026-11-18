@@ -32,6 +32,7 @@ classDiagram
          %%Добавляет позицию в заказ
       +int get_cost_order()
          %%Считает стоимость всего заказа
+      +void delete_last_order()
       +void change_status(Status_order new_status)
       +void clear_positions()
          %%Очищает корзину
@@ -94,7 +95,7 @@ classDiagram
       -Order_manager manager
       +void menu_loop()
          %% Запускает цикл меню
-      -void main_menu()
+      -boolean main_menu(Person client)
          %% Запускает главное меню
       -boolean price_menu()
          %% Меню блюд
