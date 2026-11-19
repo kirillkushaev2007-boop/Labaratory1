@@ -45,12 +45,16 @@ public class Order  {
     }
 
     public void change_status(Status_order new_status) {
-        if (this.status == Status_order.ORDERED && new_status == Status_order.SHIPPED) {
+        if (status==Status_order.ORDERED && (new_status==Status_order.SHIPPED || new_status==Status_order.ORDERED)) {
             this.status = new_status;
-        } else if (this.status == Status_order.SHIPPED && new_status == Status_order.ACCEPTED){
+
+        }
+        else if (status==Status_order.SHIPPED && (new_status==Status_order.SHIPPED || new_status==Status_order.ACCEPTED)){
             this.status = new_status;
-        } else {
-            throw new IllegalStateException("Недопустимый переход статуса с " + this.status + " на " +new_status);
+
+        }
+        else {
+            throw new IllegalStateException("Недопустимый переход статуса с " + this.status + " на " + new_status);
         }
     }
 }

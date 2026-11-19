@@ -1,6 +1,8 @@
+import java.util.Arrays;
+
 public class Order_manager {
     private Courier[] courier_array=new Courier [10];
-    private Order [] order_history=new Order [10];
+    private Order [] order_history=new Order [50];
     private int count_orders=0;
     public Order_manager() {
         courier_array[0] = new Courier("Иван", 150);
@@ -12,7 +14,17 @@ public class Order_manager {
         order_history[count_orders]=new Order(count_orders, client);
         count_orders++;
     }
-    public Order get_last_order(){return order_history[count_orders-1];}
+    public Order get_last_order(){
+        if(count_orders>0)
+            return order_history[count_orders-1];
+        else return null;
+    }
+    public void delete_last_order(){
+        if(count_orders>0){
+            order_history[count_orders-1]=null;
+            count_orders--;
+        }
+    }
     public Order [] get_order_history(){return order_history;}
     public Order [] get_shipped_orders(){
         Order[] buff = new Order[count_orders];
@@ -24,7 +36,7 @@ public class Order_manager {
         }
         if (count_shipped == 0)
             return null;
-        return java.util.Arrays.copyOf(buff, count_shipped);
+        return Arrays.copyOf(buff, count_shipped);
     }
     public int get_count_orders() {return count_orders;}
     boolean assign_courier_to_order() {
