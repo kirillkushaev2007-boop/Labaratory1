@@ -65,13 +65,13 @@ public class Order_manager {
         target_order.change_status(Status_order.SHIPPED);
         return true;
     }
-    public void complete_order() {
+    public void complete_order(Order order) {
         if (count_orders == 0) {
             System.out.println("Ошибка: Нет активных заказов для завершения!");
             return;
         }
 
-        Order current_order = order_history[count_orders - 1];
+        Order current_order = order_history[order.get_id()];
         int food_cost = current_order.get_cost_order();
         Delivery_method current_delivery = current_order.get_delivery();
 
