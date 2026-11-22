@@ -86,7 +86,7 @@ classDiagram
       +void create_new_order(Person client)
          %%Создаёт новый заказ (Order), и кладёт его в order_history
       +void assign_courier_to_order()
-      +void complete_order()
+      +void complete_order(Order order)
    }
 
    %% Пользовательский интерфейс (Console_UI)
