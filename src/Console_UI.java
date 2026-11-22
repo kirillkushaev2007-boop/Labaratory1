@@ -72,11 +72,6 @@ public class Console_UI {
             }
             switch (client_input) {
                 case (0):
-                    if (manager.get_last_order()!=null)
-                    {
-                        if(manager.get_last_order().get_status()==Status_order.ORDERED)
-                            manager.delete_last_order();
-                    }
                     return false;
                 case (1):
                     manager.create_new_order(client);
@@ -123,7 +118,7 @@ public class Console_UI {
                             if (number >= 0 && number < shipped_orders.length) {
                                 shipped_orders[number].change_status(Status_order.ACCEPTED);
                                 shipped_orders[number].get_delivery().get_courier().set_free(true);
-                                manager.complete_order();
+                                manager.complete_order(shipped_orders[number]);
                                 return true;
                             } else {
                                 System.out.println("Ваше число число не соответсвует ни одному из заказов," +
@@ -207,6 +202,14 @@ public class Console_UI {
                     System.out.println("Бургер добавлен в корзину!\n");
                     break;
                 case(4):
+                    if (manager.get_order_history()!=null) {
+                        int last_index = manager.get_count_orders()-1;
+                        for (int i = last_index; i >= 0; i--) {
+                            if (manager.get_order_history()[i].get_status() == Status_order.ORDERED) {
+                                manager.delete_last_order();
+                            }
+                        }
+                    }
                     return false;
 
                 default:
@@ -236,7 +239,7 @@ public class Console_UI {
                     manager.get_last_order().change_status(Status_order.SHIPPED);
                     manager.get_last_order().change_status(Status_order.ACCEPTED);
                     System.out.println("Успешно: Оформлен самовывоз. Курьер не требуется.");
-                    manager.complete_order();
+                    manager.complete_order(manager.get_last_order());
                     return true;
 
                 case (2):
@@ -246,7 +249,7 @@ public class Console_UI {
                         System.out.println("Вашим заказом занимается: " +
                                 manager.get_last_order().get_delivery().get_courier().get_name());
                         System.out.println("\nОформление завершено.");
-                        manager.complete_order();
+                        manager.complete_order(manager.get_last_order());
                         return true;
                     }
                     break;
@@ -258,7 +261,7 @@ public class Console_UI {
                         System.out.println("Вашим заказом занимается: " +
                                 manager.get_last_order().get_delivery().get_courier().get_name());
                         System.out.println("\nОформление завершено.");
-                        manager.complete_order();
+                        manager.complete_order(manager.get_last_order());
                         return true;
                     }
                     break;
